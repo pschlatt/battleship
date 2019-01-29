@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/ship'
-require 'pry'
+
 
 class ShipTest < Minitest::Test
 
@@ -43,15 +43,3 @@ class ShipTest < Minitest::Test
     assert_equal true, @cruiser.sunk?
   end
 end
-# pry(main)> cruiser.hit
-#
-# pry(main)> cruiser.health
-# #=> 1
-#
-# pry(main)> cruiser.sunk?
-# #=> false
-#
-# pry(main)> cruiser.hit
-#
-# pry(main)> cruiser.sunk?
-# #=> true
