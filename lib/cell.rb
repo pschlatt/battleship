@@ -1,4 +1,4 @@
-require 'pry'
+
 class Cell
     attr_reader :coordinate, :ship
 
@@ -22,8 +22,12 @@ class Cell
       @ship = ship
     end
 
-    def fire_upon?
-      false
+    def fired_upon?
+      if @ship.health != @ship.length
+        true
+      else
+        false
+      end
     end
 
     def fire_upon
