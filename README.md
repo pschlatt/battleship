@@ -1,2 +1,2 @@
 # battleship
-###Battleship_PaulSchlattmann_ZachLeach
+### Battleship: PaulSchlattmann, ZachLeach
