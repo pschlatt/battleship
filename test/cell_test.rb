@@ -9,7 +9,13 @@ class CellTest < Minitest::Test
     @cell = Cell.new("B4")
   end
 
+  def test_cell_has_coordinate
+    assert_equal "B4", @cell.coordinate
+  end
   
+
+
+
 
 end
 
