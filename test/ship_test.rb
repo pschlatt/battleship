@@ -33,7 +33,12 @@ class ShipTest < Minitest::Test
   def test_ship_can_get_hit_again
     @cruiser.hit
     @cruiser.hit
-    assert_equal 1, @cruiser.health
+    @cruiser.hit
+    refute_equal 3, @cruiser.health
+    refute_equal 2, @cruiser.health
+    refute_equal 1, @cruiser.health
+    assert_equal 0, @cruiser.health
+    assert_equal true, @cruiser.sunk?
   end
 end
 # pry(main)> cruiser.hit
