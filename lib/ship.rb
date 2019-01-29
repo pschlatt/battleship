@@ -1,3 +1,5 @@
+require "pry"
+
 class Ship
 
   attr_reader :name,
@@ -6,23 +8,23 @@ class Ship
   def initialize(name, length)
     @name = name
     @length = length
-    @health = []
+    @health = [*length.downto(0)]
+    @sunk = false
   end
 
   def health
-    @health
+    @health[0]
   end
 
   def hit
-    if @health = length
-      @health -= 1
-    elsif @health < length && sunk? != true
-      @health -= 1
-    else sunk? == true
+    @health = @health.rotate!
+    if @health == 0
+    @sunk = true
+    end
   end
 
   def sunk?
-    false
+    @sunk
   end
 
 end
