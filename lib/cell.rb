@@ -9,7 +9,6 @@ class Cell
     end
 
     def empty?
-
       if @ship == nil
         true
       else
@@ -18,11 +17,13 @@ class Cell
 
     end
 
-    def place_ship(ship)
-      @ship = ship
+    def place_ship(ship_type)
+      @ship = ship_type
+      #binding.pry
     end
 
     def fired_upon?
+      # @binding.pry
       if @ship.health != @ship.length
         true
       else
@@ -34,5 +35,14 @@ class Cell
       @ship.hit
     end
 
+    def render
+   # binding.pry
+      if binding.pry 
+         #binding.pry (@ship.health != @ship.length)
+        p "M"
+      else
+        p "."
+      end
+    end
 
 end
