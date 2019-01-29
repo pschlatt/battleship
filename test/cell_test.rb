@@ -12,7 +12,11 @@ class CellTest < Minitest::Test
   def test_cell_has_coordinate
     assert_equal "B4", @cell.coordinate
   end
-  
+
+  def test_cell_can_have_ship
+    assert_equal nil, @cell.ship
+  end
+
 
 
 
@@ -21,12 +25,7 @@ end
 
 
 
-#
-# pry(main)> cell = Cell.new("B4")
-# # => #<Cell:0x00007f84f0ad4720...>
-#
-# pry(main)> cell.coordinate
-# # => "B4"
+
 #
 # pry(main)> cell.ship
 # # => nil
