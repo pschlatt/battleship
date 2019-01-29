@@ -17,7 +17,15 @@ class CellTest < Minitest::Test
     assert_equal nil, @cell.ship
   end
 
+  def test_cell_is_empty
+    assert_equal true, @cell.empty?
+  end
 
+  def test_cell_has_ship
+    cruiser = Ship.new("Cruiser", 3)
+    @cell.place_ship(cruiser)
+    assert_equal cruiser, @cell.ship
+  end
 
 
 
@@ -26,13 +34,8 @@ end
 
 
 
-#
-# pry(main)> cell.ship
-# # => nil
-#
-# pry(main)> cell.empty?
-# # => true
-#
+
+
 # pry(main)> cruiser = Ship.new("Cruiser", 3)
 # # => #<Ship:0x00007f84f0891238...>
 #
