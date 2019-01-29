@@ -1,3 +1,0 @@
-class Ship
-
-end
