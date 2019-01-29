@@ -34,8 +34,6 @@ class ShipTest < Minitest::Test
     @cruiser.hit
     @cruiser.hit
     @cruiser.hit
-
-
     refute_equal 3, @cruiser.health
     refute_equal 2, @cruiser.health
     refute_equal 1, @cruiser.health
