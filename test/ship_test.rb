@@ -35,6 +35,20 @@ class ShipTest < Minitest::Test
     @cruiser.hit
     assert_equal 1, @cruiser.health
   end
+
+  def test_ship_health_reduced_after_hit_again
+    @cruiser.hit
+    @cruiser.hit
+    @cruiser.hit
+    assert_equal 0, @cruiser.health
+  end
+
+  def test_ship_gets_sunk
+    @cruiser.hit
+    @cruiser.hit
+    @cruiser.hit
+    assert_equal true, @cruiser.sunk?
+  end
 end
 # pry(main)> cruiser.hit
 #
