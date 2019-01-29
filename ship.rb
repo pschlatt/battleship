@@ -1,3 +1,3 @@
 class Ship
 
-end
+endq
