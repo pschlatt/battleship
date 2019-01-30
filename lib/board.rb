@@ -22,6 +22,12 @@ class Board
     }
   end
 
+  def valid_placement?(ship, coordinates)
+    valid_length?(ship, coordinates)
+    sort_length_coord?(ship, coordinates)
+    sort_width_coord?(ship, coordinates)
+  end
+
   def valid_coordinate?(coordinate)
     if @cells.has_key?(coordinate) == true
       return true
@@ -30,11 +36,26 @@ class Board
     end
   end
 
-  def valid_placement?(ship, coordinates)
+  def valid_length?(ship, coordinates)
     if ship.length == coordinates.count
       true
     else
       false
     end
   end
+
+  def sort_length_coord(ship, coordinates)
+    length_coordinates = []
+    width_coordinates = []
+    coordinates.each do |coordinate|
+      if coordinate[0] == "A" || coordinate[0] == "B" || coordinate[0] == "C" || coordinate[0] == "D"
+        length_coordinates << coordinate
+      elsif coordinate[1] == "1" || coordinate[1] == "2" || coordinate[1] == "3" || coordinate[1] == "4"
+        width_coordinates << coordinate
+      end
+    end
+    binding.pry
+  end
+
+  def sort_width_coord(ship, coordinates)
 end
