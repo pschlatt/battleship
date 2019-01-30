@@ -42,30 +42,34 @@ class CellTest < Minitest::Test
   def test_ship_has_been_hit
     cruiser = Ship.new("Cruiser", 3)
     @cell.place_ship(cruiser)
-    cruiser.hit
+    @cell.fire_upon
     assert_equal 2, cruiser.health
   end
 
   def test_ship_has_been_fired_upon
     cruiser = Ship.new("Cruiser", 3)
     @cell.place_ship(cruiser)
-    cruiser.hit
+    @cell.fire_upon
     assert_equal true, @cell.fired_upon?
   end
 
   def test_cell_can_render
+
     assert_equal ".", @cell.render
   end
 
   def test_cell_renders_a_miss
-    cruiser = Ship.new("Cruiser", 3)
-    @cell.place_ship(cruiser)
     @cell.fire_upon
     assert_equal "M", @cell.render
   end
 
+  def test_cell_renders_a_hit
+    cruiser = Ship.new("Cruiser", 3)
+    @cell.place_ship(cruiser)
+    @cell.fire_upon
+    assert_equal "H", @cell.render
+  end
 end
-
 
 
 
