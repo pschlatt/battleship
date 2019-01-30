@@ -38,15 +38,20 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A3", "A4"])
   end
 
-  def test_board_can_handle_row_coords
-    # assert_equal true, @board.row_coord?(@cruiser, ["A1", "A2", "A3"])
-    assert_equal false, @board.row_coord?(@cruiser, ["A1", "B1", "C1"])
+  # def test_board_can_handle_row_coords
+  #   skip
+  #   # assert_equal true, @board.row_coord?(@cruiser, ["A1", "A2", "A3"])
+  #   assert_equal false, @board.row_coord?(@cruiser, ["A1", "B1", "C1"])
+  # end
+
+  def test_board_can_split_into_coordinates
+    assert_equal [], @board.coordinate_split(@cruiser, ["A1", "B1", "C1"])
   end
 
-  def test_board_can_handle_column_coords
-  #   assert_equal false, @board.column_coord?(@cruiser, ["A1", "A2", "A3"])
-  #   assert_equal true, @board.column_coord?(@cruiser, ["A1", "B1", "C1"])
-  end
+  # def test_board_can_handle_column_coords
+  # #   assert_equal false, @board.column_coord?(@cruiser, ["A1", "A2", "A3"])
+  # #   assert_equal true, @board.column_coord?(@cruiser, ["A1", "B1", "C1"])
+  # end
 
   # def test_board_can_place_ships_consecutively
     # assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])

@@ -1,5 +1,6 @@
 class Board
 
+
   attr_reader :cells
   def initialize
     @cells = {
@@ -42,20 +43,40 @@ class Board
     end
   end
 
-  def row_coord?(ship, coordinates)
-    coordinates.each do |coordinate|
-      binding.pry
-      if coordinate[0] == "A" || coordinate[0] == "B" || coordinate[0] == "C" || coordinate[0] == "D"
-        return true
-      end
+  def coordinate_split(ship, coordinates)
+
+    coord_string_input = (coordinates*(",")).split("")
+    coord_string = coord_string_input.reject do |character|
+      character == ","
     end
+     binding.pry
+
+
+
   end
 
-  def column_coord?(ship, coordinates)
-    coordinates.each do |coordinate|
-      if coordinate[1] == "1" || coordinate[1] == "2" || coordinate[1] == "3" || coordinate[1] == "4"
-        return true
-      end
-    end
-  end
+
+  # def row_coord
+  # end
+  #
+  # def column_coord
+  # end
+  # def row_coords?(ship, coordinates)
+  #
+  #   individual_coordinate =
+  #   coordinates.each do |coordinate|
+  #     binding.pry
+  #     if coordinate[0] == "A" || coordinate[0] == "B" || coordinate[0] == "C" || coordinate[0] == "D"
+  #       return true
+  #     end
+  #   end
+  # end
+  #
+  # def column_coords?(ship, coordinates)
+  #   coordinates.each do |coordinate|
+  #     if coordinate[1] == "1" || coordinate[1] == "2" || coordinate[1] == "3" || coordinate[1] == "4"
+  #       return true
+  #     end
+  #   end
+  # end
 end
