@@ -23,12 +23,10 @@ class Board
   end
 
   def valid_coordinate?(coordinate)
-    @cells.find do |cell|
-      if coordinate == cell.first
-        return true
-      else
-        return false
-      end
+    if @cells.has_key?(coordinate) == true
+      return true
+    else
+      return false
     end
   end
 end
