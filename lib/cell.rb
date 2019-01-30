@@ -35,11 +35,13 @@ class Cell
     end
   end
 
-  def render
+  def render(not_hidden = false)
     if @ship != nil && @fired_upon == true
       return "H"
     elsif @ship == nil && @fired_upon == true
       return "M"
+    elsif @ship != nil && not_hidden == true
+      return "S"
     else
       return "."
     end
