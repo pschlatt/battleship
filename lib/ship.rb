@@ -18,12 +18,11 @@ class Ship
   end
 
   def hit
-      if @health.first > 0
-        @health = @health.rotate!
-      end
-
-        @sunk = true
-
+    if @health.first > 0
+      @health = @health.rotate!
+    else
+      @sunk = true
+    end
   end
 
   def sunk?

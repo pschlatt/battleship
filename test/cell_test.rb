@@ -6,11 +6,11 @@ require 'pry'
 class CellTest < Minitest::Test
 
   def setup
-    @cell = Cell.new("B4")
+    @cell = Cell.new("B3")
   end
 
   def test_cell_has_coordinate
-    assert_equal "B4", @cell.coordinate
+    assert_equal "B3", @cell.coordinate
   end
 
   def test_cell_can_have_ship
@@ -85,20 +85,29 @@ class CellTest < Minitest::Test
     @cell_2.place_ship(cruiser)
     assert_equal "S", @cell_2.render(true)
   end
-end
 
-# pry(main)> cell_2.fire_upon
-#
-# pry(main)> cell_2.render
-# # => "H"
-#
-# pry(main)> cruiser.sunk?
-# # => false
-#
-# pry(main)> cruiser.hit
-#
-# pry(main)> cruiser.hit
-#
+  def test_cell_2_can_be_hit
+    cruiser = Ship.new("Cruiser", 3)
+    @cell_2 = Cell.new("C3")
+    @cell.place_ship(cruiser)
+    @cell_2.place_ship(cruiser)
+    @cell.fire_upon
+    @cell_2.fire_upon
+    assert_equal "H", @cell_2.render
+  end
+
+  def test_ship_is_not_sunk
+    cruiser = Ship.new("Cruiser", 3)
+    @cell_2 = Cell.new("C3")
+    @cell_3 = Cell.new("D3")
+    @cell.place_ship(cruiser)
+    @cell_2.place_ship(cruiser)
+    @cell.fire_upon
+    @cell_2.fire_upon
+    # binding.pry
+    assert_equal false, cruiser.sunk?
+  end
+end
 # pry(main)> cruiser.sunk?
 # # => true
 #
