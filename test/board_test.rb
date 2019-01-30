@@ -31,16 +31,21 @@ class BoardTest < Minitest::Test
     assert_equal true, @board.valid_coordinate?("B3")
   end
 
-  def test_board_can_handle_length_and_width_coordinates
-    assert_equal true, @board.valid_placement?(@cruiser, ["A1", "A2", "A3"])
-
-  end
-
   def test_board_can_test_placement_based_on_length
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2"])
     assert_equal false, @board.valid_placement?(@submarine, ["A2", "A3", "A4"])
     assert_equal true, @board.valid_placement?(@cruiser, ["A1", "A2", "A3"])
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A3", "A4"])
+  end
+
+  def test_board_can_handle_row_coords
+    # assert_equal true, @board.row_coord?(@cruiser, ["A1", "A2", "A3"])
+    assert_equal false, @board.row_coord?(@cruiser, ["A1", "B1", "C1"])
+  end
+
+  def test_board_can_handle_column_coords
+  #   assert_equal false, @board.column_coord?(@cruiser, ["A1", "A2", "A3"])
+  #   assert_equal true, @board.column_coord?(@cruiser, ["A1", "B1", "C1"])
   end
 
   # def test_board_can_place_ships_consecutively
