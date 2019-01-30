@@ -99,7 +99,6 @@ class CellTest < Minitest::Test
   def test_ship_is_not_sunk
     cruiser = Ship.new("Cruiser", 3)
     @cell_2 = Cell.new("C3")
-    @cell_3 = Cell.new("D3")
     @cell.place_ship(cruiser)
     @cell_2.place_ship(cruiser)
     @cell.fire_upon
@@ -107,6 +106,21 @@ class CellTest < Minitest::Test
     # binding.pry
     assert_equal false, cruiser.sunk?
   end
+
+  def test_ship_is_not_sunk
+    cruiser = Ship.new("Cruiser", 3)
+    @cell_2 = Cell.new("C3")
+    @cell_3 = Cell.new("D3")
+    @cell.place_ship(cruiser)
+    @cell_2.place_ship(cruiser)
+    @cell_3.place_ship(cruiser)
+    @cell.fire_upon
+    @cell_2.fire_upon
+    @cell_3.fire_upon
+    assert_equal true, cruiser.sunk?
+  end
+
+
 end
 # pry(main)> cruiser.sunk?
 # # => true

@@ -20,13 +20,14 @@ class Ship
   def hit
     if @health.first > 0
       @health = @health.rotate!
-    else
-      @sunk = true
     end
   end
 
   def sunk?
     @sunk
+    if @health.first == 0
+      @sunk = true
+    end
   end
 
 end
