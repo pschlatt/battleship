@@ -36,7 +36,9 @@ class Cell
   end
 
   def render(not_hidden = false)
-    if @ship != nil && @fired_upon == true
+    if @ship != nil && @ship.sunk? == true
+      return "X"
+    elsif @ship != nil && @fired_upon == true
       return "H"
     elsif @ship == nil && @fired_upon == true
       return "M"

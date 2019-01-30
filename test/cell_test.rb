@@ -120,10 +120,21 @@ class CellTest < Minitest::Test
     assert_equal true, cruiser.sunk?
   end
 
-
+  def test_cells_render_sunken_ship
+    cruiser = Ship.new("Cruiser", 3)
+    @cell_2 = Cell.new("C3")
+    @cell_3 = Cell.new("D3")
+    @cell.place_ship(cruiser)
+    @cell_2.place_ship(cruiser)
+    @cell_3.place_ship(cruiser)
+    @cell.fire_upon
+    @cell_2.fire_upon
+    @cell_3.fire_upon
+    assert_equal "X", @cell.render
+    assert_equal "X", @cell_2.render
+    assert_equal "X", @cell_3.render
+  end
 end
-# pry(main)> cruiser.sunk?
-# # => true
-#
+
 # pry(main)> cell_2.render
 # # => "X"
