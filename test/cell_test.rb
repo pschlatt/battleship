@@ -6,11 +6,11 @@ require 'pry'
 class CellTest < Minitest::Test
 
   def setup
-    @cell = Cell.new("B4")
+    @cell = Cell.new("B3")
   end
 
   def test_cell_has_coordinate
-    assert_equal "B4", @cell.coordinate
+    assert_equal "B3", @cell.coordinate
   end
 
   def test_cell_can_have_ship
@@ -42,75 +42,99 @@ class CellTest < Minitest::Test
   def test_ship_has_been_hit
     cruiser = Ship.new("Cruiser", 3)
     @cell.place_ship(cruiser)
-    cruiser.hit
+    @cell.fire_upon
     assert_equal 2, cruiser.health
   end
 
   def test_ship_has_been_fired_upon
     cruiser = Ship.new("Cruiser", 3)
     @cell.place_ship(cruiser)
-    cruiser.hit
+    @cell.fire_upon
     assert_equal true, @cell.fired_upon?
   end
 
   def test_cell_can_render
+
     assert_equal ".", @cell.render
   end
 
   def test_cell_renders_a_miss
-    cruiser = Ship.new("Cruiser", 3)
-    @cell.place_ship(cruiser)
     @cell.fire_upon
     assert_equal "M", @cell.render
   end
 
+  def test_cell_renders_a_hit
+    cruiser = Ship.new("Cruiser", 3)
+    @cell.place_ship(cruiser)
+    @cell.fire_upon
+    assert_equal "H", @cell.render
+  end
+
+  def test_it_can_render_both_cells
+    cruiser = Ship.new("Cruiser", 3)
+    @cell_2 = Cell.new("C3")
+    @cell.place_ship(cruiser)
+    @cell_2.place_ship(cruiser)
+    assert_equal ".", @cell_2.render
+  end
+
+  def test_ship_has_default_argument
+    cruiser = Ship.new("Cruiser", 3)
+    @cell_2 = Cell.new("C3")
+    @cell.place_ship(cruiser)
+    @cell_2.place_ship(cruiser)
+    assert_equal "S", @cell_2.render(true)
+  end
+
+  def test_cell_2_can_be_hit
+    cruiser = Ship.new("Cruiser", 3)
+    @cell_2 = Cell.new("C3")
+    @cell.place_ship(cruiser)
+    @cell_2.place_ship(cruiser)
+    @cell.fire_upon
+    @cell_2.fire_upon
+    assert_equal "H", @cell_2.render
+  end
+
+  def test_ship_is_not_sunk
+    cruiser = Ship.new("Cruiser", 3)
+    @cell_2 = Cell.new("C3")
+    @cell.place_ship(cruiser)
+    @cell_2.place_ship(cruiser)
+    @cell.fire_upon
+    @cell_2.fire_upon
+    # binding.pry
+    assert_equal false, cruiser.sunk?
+  end
+
+  def test_ship_is_not_sunk
+    cruiser = Ship.new("Cruiser", 3)
+    @cell_2 = Cell.new("C3")
+    @cell_3 = Cell.new("D3")
+    @cell.place_ship(cruiser)
+    @cell_2.place_ship(cruiser)
+    @cell_3.place_ship(cruiser)
+    @cell.fire_upon
+    @cell_2.fire_upon
+    @cell_3.fire_upon
+    assert_equal true, cruiser.sunk?
+  end
+
+  def test_cells_render_sunken_ship
+    cruiser = Ship.new("Cruiser", 3)
+    @cell_2 = Cell.new("C3")
+    @cell_3 = Cell.new("D3")
+    @cell.place_ship(cruiser)
+    @cell_2.place_ship(cruiser)
+    @cell_3.place_ship(cruiser)
+    @cell.fire_upon
+    @cell_2.fire_upon
+    @cell_3.fire_upon
+    assert_equal "X", @cell.render
+    assert_equal "X", @cell_2.render
+    assert_equal "X", @cell_3.render
+  end
 end
 
-
-
-
-
-#
-# pry(main)> cell_1 = Cell.new("B4")
-# # => #<Cell:0x00007f84f11df920...>
-#
-# pry(main)> cell_1.render
-# # => "."
-#
-# pry(main)> cell_1.fire_upon
-#
-# pry(main)> cell_1.render
-# # => "M"
-#
-# pry(main)> cell_2 = Cell.new("C3")
-# # => #<Cell:0x00007f84f0b29d10...>
-#
-# pry(main)> cruiser = Ship.new("Cruiser", 3)
-# # => #<Ship:0x00007f84f0ad4fb8...>
-#
-# pry(main)> cell_2.place_ship(cruiser)
-#
-# pry(main)> cell_2.render
-# # => "."
-#
-# # Indicate that we want to show a ship with the optional argument
-# pry(main)> cell_2.render(true)
-# # => "S"
-#
-# pry(main)> cell_2.fire_upon
-#
-# pry(main)> cell_2.render
-# # => "H"
-#
-# pry(main)> cruiser.sunk?
-# # => false
-#
-# pry(main)> cruiser.hit
-#
-# pry(main)> cruiser.hit
-#
-# pry(main)> cruiser.sunk?
-# # => true
-#
 # pry(main)> cell_2.render
 # # => "X"
