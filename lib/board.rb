@@ -22,12 +22,39 @@ class Board
     }
   end
 
-  def valid_coordinate?(coordinate)
-    @cells.find do |cell|
-      if coordinate == cell.first
+  def valid_placement?(ship, coordinates)
+    valid_length?(ship, coordinates)
+  end
+
+  def valid_coordinate?(coordinates)
+    if @cells.has_key?(coordinates) == true
+      return true
+    else
+      return false
+    end
+  end
+
+  def valid_length?(ship, coordinates)
+    if ship.length == coordinates.count
+      true
+    else
+      false
+    end
+  end
+
+  def row_coord?(ship, coordinates)
+    coordinates.each do |coordinate|
+      binding.pry
+      if coordinate[0] == "A" || coordinate[0] == "B" || coordinate[0] == "C" || coordinate[0] == "D"
         return true
-      else
-        return false
+      end
+    end
+  end
+
+  def column_coord?(ship, coordinates)
+    coordinates.each do |coordinate|
+      if coordinate[1] == "1" || coordinate[1] == "2" || coordinate[1] == "3" || coordinate[1] == "4"
+        return true
       end
     end
   end
