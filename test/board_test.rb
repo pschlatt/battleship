@@ -64,10 +64,10 @@ class BoardTest < Minitest::Test
    assert_equal false, @board.column_ord?(["A1", "A2", "A3"])
   end
 
-  # def test_board_can_place_ships_consecutively
-    # assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
-    # assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A3", "A4"])
-    # assert_equal false, @board.valid_placement?(@submarine, ["A1", "A4"])
-    # assert_equal false, @board.valid_placement?(@submarine, ["A1", "A3"])
-  # end
+  def test_board_can_place_ships_consecutively_rows
+    assert_equal true, @board.valid_consecutive(@cruiser, ["A1", "A2", "A3"])
+    assert_equal false, @board.valid_consecutive(@cruiser, ["A1", "A3", "A4"])
+    assert_equal false, @board.valid_consecutive(@submarine, ["A1", "A4"])
+    assert_equal false, @board.valid_consecutive(@submarine, ["A1", "A3"])
+  end
 end
