@@ -44,15 +44,10 @@ class Board
   end
 
   def coordinate_split(ship, coordinates)
-
     coord_string_input = (coordinates*(",")).split("")
     coord_string = coord_string_input.reject do |character|
       character == ","
     end
-     binding.pry
-
-
-
   end
 
 
