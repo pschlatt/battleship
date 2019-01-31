@@ -46,7 +46,12 @@ class BoardTest < Minitest::Test
   def test_board_creates_row_coord_ords
 
    assert_equal [65, 65, 65], @board.row_coord_ord(["A1", "A2", "A3"])
-   assert_equal [65, 66, 67], @board.row_coord_ord(["A1", "B1", "C1"])
+   assert_equal [66, 67, 68], @board.row_coord_ord(["B2", "C2", "D2"])
+  end
+
+  def test_board_can_handle_column_coord_ord
+    assert_equal [50, 50, 50], @board.column_coord_ord(["B2", "C2", "D2"])
+    assert_equal [49, 49, 49], @board.column_coord_ord(["A1", "B1", "C1"])
   end
 
   def test_board_can_tell_if_row
@@ -54,10 +59,9 @@ class BoardTest < Minitest::Test
    assert_equal false, @board.row_ord?(["A1", "B1", "C1"])
   end
 
-  def test_board_can_handle_column_coords
-    skip
-    assert_equal false, @board.column_coord?(@cruiser, ["A1", "A2", "A3"])
-    assert_equal true, @board.column_coord?(@cruiser, ["A1", "B1", "C1"])
+  def test_board_can_tell_if_column
+   assert_equal true, @board.column_ord?(["A1", "B1", "C1"])
+   assert_equal false, @board.column_ord?(["A1", "A2", "A3"])
   end
 
   # def test_board_can_place_ships_consecutively

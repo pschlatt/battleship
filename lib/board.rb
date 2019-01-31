@@ -87,6 +87,14 @@ class Board
     end
     return column_ord
   end
+
+ def column_ord?(coordinates)
+    if column_coord_ord(coordinates).uniq.count == 1
+      true
+    else
+      false
+    end
+  end
   # def row_coords?(ship, coordinates)
   #
   #   individual_coordinate =
