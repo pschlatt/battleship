@@ -1,5 +1,6 @@
 class Board
 
+
   attr_reader :cells
   def initialize
     @cells = {
@@ -24,6 +25,8 @@ class Board
 
   def valid_placement?(ship, coordinates)
     valid_length?(ship, coordinates)
+    row_coord_ord(coordinates)
+    column_coord_ord(coordinates)
   end
 
   def valid_coordinate?(coordinates)
@@ -42,20 +45,72 @@ class Board
     end
   end
 
-  def row_coord?(ship, coordinates)
-    coordinates.each do |coordinate|
-      binding.pry
-      if coordinate[0] == "A" || coordinate[0] == "B" || coordinate[0] == "C" || coordinate[0] == "D"
-        return true
-      end
+  def coordinate_split(coordinates)
+    coord_string_input = (coordinates*(",")).split("")
+    coord_string = coord_string_input.reject do |character|
+      character == ","
     end
   end
 
-  def column_coord?(ship, coordinates)
-    coordinates.each do |coordinate|
-      if coordinate[1] == "1" || coordinate[1] == "2" || coordinate[1] == "3" || coordinate[1] == "4"
-        return true
+
+  def row_coord_ord(coordinates)
+    coordinate_ord = coordinate_split(coordinates).map do |char|
+      char.ord
+    end
+    row_ord = []
+    coordinate_ord.collect.with_index do |row_coord, index|
+      if index.even?
+        row_ord << row_coord
       end
     end
+    return row_ord
   end
+
+  def row_ord?(coordinates)
+    if row_coord_ord(coordinates).uniq.count == 1
+      true
+    else
+      false
+    end
+  end
+
+
+  def column_coord_ord(coordinates)
+    coordinate_ord = coordinate_split(coordinates).map do |char|
+      char.ord
+    end
+    column_ord = []
+    coordinate_ord.collect.with_index do |column_coord, index|
+      if index.odd?
+        column_ord << column_coord
+      end
+    end
+    return column_ord
+  end
+
+ def column_ord?(coordinates)
+    if column_coord_ord(coordinates).uniq.count == 1
+      true
+    else
+      false
+    end
+  end
+  # def row_coords?(ship, coordinates)
+  #
+  #   individual_coordinate =
+  #   coordinates.each do |coordinate|
+  #     binding.pry
+  #     if coordinate[0] == "A" || coordinate[0] == "B" || coordinate[0] == "C" || coordinate[0] == "D"
+  #       return true
+  #     end
+  #   end
+  # end
+  #
+  # def column_coords?(ship, coordinates)
+  #   coordinates.each do |coordinate|
+  #     if coordinate[1] == "1" || coordinate[1] == "2" || coordinate[1] == "3" || coordinate[1] == "4"
+  #       return true
+  #     end
+  #   end
+  # end
 end
