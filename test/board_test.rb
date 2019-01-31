@@ -46,6 +46,7 @@ class BoardTest < Minitest::Test
 
   def test_board_can_split_into_coordinates
     assert_equal ["A", "1", "B", "1", "C", "1"], @board.coordinate_split(@cruiser, ["A1", "B1", "C1"])
+    assert_equal ["A", "1", "A", "2", "A", "3", "A", "4"], @board.coordinate_split(@cruiser, ["A1", "A2", "A3", "A4"])
   end
 
   # def test_board_can_handle_column_coords
