@@ -119,23 +119,19 @@ class Board
     end
   end
 
-  # def row_consecutive?(ship, coordinates)
-  #   if (row_consecutive_arr[0][1]) - (row_consecutive_arr[0][0]) == 1
-  #     true
-  #   (rotate method here)
-  # end
-
-  # def column_consecutive?(ship, coordinates)
-  #   if (column_consecutive_arr[0][1]) - (column_consecutive_arr[0][0]) == 1
-  #     true
-  #   (rotate method here)
-  # end
-# end
-
-  def valid_consecutive(ship, coordinates)
-    row_coords?(ship, coordinates)
-    column_coords?(ship, coordinates)
+  def row_consecutive?(coordinates)
+    (row_consecutive_arr(coordinates)[0][1]) - (row_consecutive_arr(coordinates)[0][0]) == 1
   end
+
+  def column_consecutive?(coordinates)
+    (column_consecutive_arr(coordinates)[0][1]) - (column_consecutive_arr(coordinates)[0][0]) == 1
+  end
+end
+
+  # def valid_consecutive(ship, coordinates)
+  #   row_coords?(ship, coordinates)
+  #   column_coords?(ship, coordinates)
+  # end
 
 
   # def row_coords?(ship, coordinates)

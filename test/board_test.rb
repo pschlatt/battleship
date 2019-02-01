@@ -75,10 +75,17 @@ class BoardTest < Minitest::Test
     assert_equal [[66, 67], [67, 68]], @board.column_consecutive_arr(["B1", "C1", "D1"])
     assert_equal [[66, 67], [67, 68]], @board.column_consecutive_arr(["B2", "C2", "D2"])
   end
-  # def test_board_can_place_ships_consecutively_rows
-  #   assert_equal true, @board.valid_consecutive(@cruiser, ["A1", "A2", "A3", "A4"])
-  #   assert_equal false, @board.valid_consecutive(@cruiser, ["A1", "A3", "A4"])
-  #   assert_equal false, @board.valid_consecutive(@submarine, ["A1", "A4"])
-  #   assert_equal false, @board.valid_consecutive(@submarine, ["A1", "A3"])
-  # end
+  def test_board_can_place_ships_consecutively_rows
+    assert_equal true, @board.row_consecutive?(["A1", "A2", "A3", "A4"])
+    assert_equal false, @board.row_consecutive?(["A1", "A3", "A4"])
+    assert_equal false, @board.row_consecutive?(["A1", "A4"])
+    assert_equal false, @board.row_consecutive?(["A1", "A3"])
+  end
+
+  def test_board_can_place_ships_consecutively_columns
+    assert_equal true, @board.row_consecutive?(["A1", "B1", "D1"])
+    assert_equal false, @board.row_consecutive?(["A3", "C3", "D3"])
+    assert_equal false, @board.row_consecutive?(["B1", "D1"])
+    assert_equal false, @board.row_consecutive?(["A1", "A3"])
+  end
 end
