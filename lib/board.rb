@@ -23,11 +23,41 @@ class Board
     }
   end
 
+  def place(ship, coordinates)
+    cells.each do |cell|
+      coordinates.each do |coordinate|
+        if cell[0] == coordinate
+          cell[1].place_ship(ship)
+        end
+      end
+    end
+  end
+
+
   def valid_placement?(ship, coordinates)
     valid_coordinate?(coordinates)
     valid_length?(ship, coordinates)
-    valid_consecutive(ship, coordinates)
+    valid_consecutive?(coordinates)
+    valid_diagonal?(coordinates)
+    ships_overlap?(ship, coordinates)
 
+  end
+
+  def valid_consecutive?(coordinates)
+    if row_consecutive?(coordinates) == true || column_consecutive(coordinates) == true
+      true
+    else
+      false
+    end
+  end
+
+
+  def valid_length?(ship, coordinates)
+    if ship.length == coordinates.count
+      true
+    else
+      false
+    end
   end
 
   def valid_coordinate?(coordinates)
@@ -38,14 +68,6 @@ class Board
     end
   end
 
-  def valid_length?(ship, coordinates)
-    if ship.length == coordinates.count
-      true
-    else
-      false
-    end
-  end
-
   def coordinate_split(coordinates)
     coord_string_input = (coordinates*(",")).split("")
     coord_string = coord_string_input.reject do |character|
@@ -53,13 +75,12 @@ class Board
     end
   end
 
-
   def row_coord_ord(coordinates)
     coordinate_ord = coordinate_split(coordinates).map do |char|
       char.ord
     end
     row_ord = []
-    coordinate_ord.collect.with_index do |row_coord, index|
+    coordinate_ord.each.with_index do |row_coord, index|
       if index.even?
         row_ord << row_coord
       end
@@ -100,42 +121,54 @@ class Board
   def row_consecutive_arr(coordinates)
     if row_ord?(coordinates)
       row_arr = column_coord_ord(coordinates)
-      row_consecutive_arr = []
+      row_consecutive_data = []
       row_arr.each_cons(2) do |cons|
-      row_consecutive_arr << cons
+      row_consecutive_data << cons
       end
-      row_consecutive_arr
+      row_consecutive_data
     end
   end
 
   def column_consecutive_arr(coordinates)
     if column_ord?(coordinates)
       column_arr = row_coord_ord(coordinates)
-      column_consecutive_arr = []
+      column_consecutive_data = []
       column_arr.each_cons(2) do |cons|
-      column_consecutive_arr << cons
+      column_consecutive_data << cons
       end
-      column_consecutive_arr
+      column_consecutive_data
     end
   end
 
-  # def row_consecutive?(ship, coordinates)
-  #   if (row_consecutive_arr[0][1]) - (row_consecutive_arr[0][0]) == 1
-  #     true
-  #   (rotate method here)
-  # end
+  def row_consecutive?(coordinates)
+    (row_consecutive_arr(coordinates)[0][1]) - (row_consecutive_arr(coordinates)[0][0]) == 1
 
-  # def column_consecutive?(ship, coordinates)
-  #   if (column_consecutive_arr[0][1]) - (column_consecutive_arr[0][0]) == 1
-  #     true
-  #   (rotate method here)
-  # end
-# end
-
-  def valid_consecutive(ship, coordinates)
-    row_coords?(ship, coordinates)
-    column_coords?(ship, coordinates)
   end
+
+  def column_consecutive?(coordinates)
+    (column_consecutive_arr(coordinates)[0][1]) - (column_consecutive_arr(coordinates)[0][0]) == 1
+  end
+
+  def valid_diagonal?(coordinates)
+    if row_ord?(coordinates) || column_ord?(coordinates)
+      true
+    else
+      false
+    end
+  end
+
+  def ships_overlap(ship, coordinates)
+    cells.each do |cell|
+      coordinates.each do |coordinate|
+        if cell[0] == coordinate
+          return true
+        else
+          return false
+        end
+      end
+    end
+  end
+end
 
 
   # def row_coords?(ship, coordinates)
@@ -156,4 +189,3 @@ class Board
   #     end
   #   end
   # end
-end
