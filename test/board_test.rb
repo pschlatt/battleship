@@ -71,9 +71,9 @@ class BoardTest < Minitest::Test
   end
 
   def test_board_has_row_consecutive_array
-    assert_equal [[49, 49], [49, 49]], @board.column_consecutive_arr(["A1", "B1", "C1"])
-    assert_equal [[49, 49], [49, 49]], @board.column_consecutive_arr(["B1", "C1", "D1"])
-    assert_equal [[50, 50], [50, 50]], @board.column_consecutive_arr(["B2", "C2", "D2"])
+    assert_equal [[65, 66], [66, 67]], @board.column_consecutive_arr(["A1", "B1", "C1"])
+    assert_equal [[66, 67], [67, 68]], @board.column_consecutive_arr(["B1", "C1", "D1"])
+    assert_equal [[66, 67], [67, 68]], @board.column_consecutive_arr(["B2", "C2", "D2"])
   end
   # def test_board_can_place_ships_consecutively_rows
   #   assert_equal true, @board.valid_consecutive(@cruiser, ["A1", "A2", "A3", "A4"])

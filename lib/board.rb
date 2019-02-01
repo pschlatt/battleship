@@ -110,7 +110,7 @@ class Board
 
   def column_consecutive_arr(coordinates)
     if column_ord?(coordinates)
-      column_arr = column_coord_ord(coordinates)
+      column_arr = row_coord_ord(coordinates)
       column_consecutive_arr = []
       column_arr.each_cons(2) do |cons|
       column_consecutive_arr << cons
@@ -131,6 +131,11 @@ class Board
   #   (rotate method here)
   # end
 # end
+
+  def valid_consecutive(ship, coordinates)
+    row_coords?(ship, coordinates)
+    column_coords?(ship, coordinates)
+  end
 
 
   # def row_coords?(ship, coordinates)
