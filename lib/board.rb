@@ -24,9 +24,10 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
+    valid_coordinate?(coordinates)
     valid_length?(ship, coordinates)
-    row_coord_ord(coordinates)
-    column_coord_ord(coordinates)
+    valid_consecutive(ship, coordinates)
+
   end
 
   def valid_coordinate?(coordinates)
@@ -95,6 +96,48 @@ class Board
       false
     end
   end
+
+  def row_consecutive_arr(coordinates)
+    if row_ord?(coordinates)
+      row_arr = column_coord_ord(coordinates)
+      row_consecutive_arr = []
+      row_arr.each_cons(2) do |cons|
+      row_consecutive_arr << cons
+      end
+      row_consecutive_arr
+    end
+  end
+
+  def column_consecutive_arr(coordinates)
+    if column_ord?(coordinates)
+      column_arr = row_coord_ord(coordinates)
+      column_consecutive_arr = []
+      column_arr.each_cons(2) do |cons|
+      column_consecutive_arr << cons
+      end
+      column_consecutive_arr
+    end
+  end
+
+  # def row_consecutive?(ship, coordinates)
+  #   if (row_consecutive_arr[0][1]) - (row_consecutive_arr[0][0]) == 1
+  #     true
+  #   (rotate method here)
+  # end
+
+  # def column_consecutive?(ship, coordinates)
+  #   if (column_consecutive_arr[0][1]) - (column_consecutive_arr[0][0]) == 1
+  #     true
+  #   (rotate method here)
+  # end
+# end
+
+  def valid_consecutive(ship, coordinates)
+    row_coords?(ship, coordinates)
+    column_coords?(ship, coordinates)
+  end
+
+
   # def row_coords?(ship, coordinates)
   #
   #   individual_coordinate =
