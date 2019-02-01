@@ -27,7 +27,7 @@ class Board
     cells.each do |cell|
       coordinates.each do |coordinate|
         if cell[0] == coordinate
-          cell.place_ship(ship)
+          cell[1].place_ship(ship)
         end
       end
     end

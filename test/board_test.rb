@@ -111,5 +111,6 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.cells["A1"].empty?
     assert_equal false, @board.cells["A2"].empty?
     assert_equal false, @board.cells["A3"].empty?
+    assert_equal true, @board.cells["A4"].empty?
   end
 end
