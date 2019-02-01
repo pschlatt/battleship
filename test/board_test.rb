@@ -91,4 +91,25 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.column_consecutive?(["B1", "D1"])
     assert_equal false, @board.column_consecutive?(["B3", "D3"])
   end
+
+  def test_validation_test_does_not_pass_diagonals
+    assert_equal false, @board.valid_diagonal?(["A1", "B2", "C3"])
+    assert_equal false, @board.valid_diagonal?(["B2", "C3", "D4"])
+    assert_equal false, @board.valid_diagonal?(["B1", "C2"])
+    assert_equal false, @board.valid_diagonal?(["B3", "D4"])
+  end
+
+  def test_ship_placement_validates_ships_overlapping
+    @board.cells["A1"].place_ship(@cruiser)
+    @board.cells["A2"].place_ship(@cruiser)
+    @board.cells["A3"].place_ship(@cruiser)
+    assert_equal true, @board.ships_overlap(@cruiser, ["A1", "A2", "A3"])
+  end
+
+  def test_ship_can_be_placed
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    assert_equal false, @board.cells["A1"].empty?
+    assert_equal false, @board.cells["A2"].empty?
+    assert_equal false, @board.cells["A3"].empty?
+  end
 end
