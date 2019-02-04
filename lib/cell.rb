@@ -1,3 +1,4 @@
+require 'pry'
 
 class Cell
 
@@ -11,12 +12,13 @@ class Cell
   end
 
   def empty?
+    # binding.pry
     if @ship == nil
       true
     else
       false
     end
-
+    
   end
 
   def place_ship(ship_type)

@@ -3,10 +3,9 @@ require './lib/validation'
 class Board
 
 
-  attr_reader :validation,
-              :cells
+  attr_reader :cells
   def initialize
-    @validation = Validation.new
+
     @cells = {
       "A1" => Cell.new("A1"),
       "A2" => Cell.new("A2"),
@@ -25,6 +24,11 @@ class Board
       "D3" => Cell.new("D3"),
       "D4" => Cell.new("D4")
     }
+    @validation = Validation.new(@cells)
+  end
+
+  def validation
+    @validation
   end
 
   def place(ship, coordinates)

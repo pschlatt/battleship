@@ -2,16 +2,46 @@ require './lib/board'
 
 class Validation
 
+  attr_reader :cells
+
+  def initialize(cells)
+    @cells = cells
+  end
+
   def valid_placement?(ship, coordinates)
-    valid_coordinate?(coordinates)
-    valid_length?(ship, coordinates)
-    valid_consecutive?(coordinates)
-    valid_diagonal?(coordinates)
-    ships_overlap?(ship, coordinates)
+    if !valid_coordinates?(coordinates)
+      return false
+    elsif !valid_length?(ship, coordinates)
+      return false
+    elsif !valid_consecutive?(coordinates)
+      return false
+    elsif !valid_coord_by_diagonal?(coordinates)
+      return false
+    elsif ships_overlap?(ship, coordinates)
+      return false
+    end
+    return true
+  end
+
+  def valid_coordinates?(coordinates)
+    coordinates.each do |coordinate|
+      if !valid_coordinate?(coordinate)
+        return false
+      end
+    end
+    return true
+  end
+
+  def valid_coordinate?(coordinate)
+    if @cells.has_key?(coordinate) == true
+      return true
+    else
+      return false
+    end
   end
 
   def valid_consecutive?(coordinates)
-    if row_consecutive?(coordinates) == true || column_consecutive(coordinates) == true
+    if row_consecutive?(coordinates) == true || column_consecutive?(coordinates) == true
       true
     else
       false
@@ -27,13 +57,6 @@ class Validation
     end
   end
 
-  def valid_coordinate?(coordinates)
-    if @cells.has_key?(coordinates) == true
-      return true
-    else
-      return false
-    end
-  end
 
   def coordinate_split(coordinates)
     coord_string_input = (coordinates*(",")).split("")
@@ -86,37 +109,44 @@ class Validation
   end
 
   def row_consecutive_arr(coordinates)
+    row_consecutive_data = []
     if row_ord?(coordinates)
       row_arr = column_coord_ord(coordinates)
-      row_consecutive_data = []
       row_arr.each_cons(2) do |cons|
-      row_consecutive_data << cons
+        row_consecutive_data << cons
       end
-      row_consecutive_data
     end
+    row_consecutive_data
   end
 
   def column_consecutive_arr(coordinates)
+    column_consecutive_data = []
     if column_ord?(coordinates)
       column_arr = row_coord_ord(coordinates)
-      column_consecutive_data = []
       column_arr.each_cons(2) do |cons|
       column_consecutive_data << cons
       end
-      column_consecutive_data
     end
+    column_consecutive_data
   end
 
   def row_consecutive?(coordinates)
-    (row_consecutive_arr(coordinates)[0][1]) - (row_consecutive_arr(coordinates)[0][0]) == 1
-
+    row_array = row_consecutive_arr(coordinates)[0]
+    if row_array
+      (row_consecutive_arr(coordinates)[0][1]) - (row_consecutive_arr(coordinates)[0][0]) == 1
+    else
+      false
+    end
   end
 
   def column_consecutive?(coordinates)
-    (column_consecutive_arr(coordinates)[0][1]) - (column_consecutive_arr(coordinates)[0][0]) == 1
+    column_array = column_consecutive_arr(coordinates)[0]
+    if column_array
+      (column_consecutive_arr(coordinates)[0][1]) - (column_consecutive_arr(coordinates)[0][0]) == 1
+    end
   end
 
-  def valid_diagonal?(coordinates)
+  def valid_coord_by_diagonal?(coordinates)
     if row_ord?(coordinates) || column_ord?(coordinates)
       true
     else
@@ -124,15 +154,14 @@ class Validation
     end
   end
 
-  def ships_overlap(ship, coordinates)
+  def ships_overlap?(ship, coordinates)
     cells.each do |cell|
       coordinates.each do |coordinate|
-        if cell[0] == coordinate
+        if cell[1].empty? == false
           return true
-        else
-          return false
         end
       end
     end
+    return false
   end
 end
