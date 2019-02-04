@@ -168,6 +168,55 @@ class Board
       end
     end
   end
+
+  def render_master
+    render_arr = []
+    render = {}
+    cells.group_by do |cell|
+      render_arr << cell[0]
+    end
+    render = render_arr.group_by do |coord|
+      coord[0]
+    end
+  end
+
+  def render(default = false)
+    render_header
+    render_body
+    print "  "
+
+    # render_arr = []
+    # cells.each do |keys, values|
+    #   render_arr << keys[0]
+    #   if
+    #     render_arr << keys[0]
+    #     p "#{keys[0]}"
+    #   elsif
+    #     render_arr.clear
+    #   end
+    #   binding.pry
+    # end
+  end
+
+  def render_body
+    print "\n"
+    render_master.keys.each do |key|
+      print "#{key} "
+      @cells.each_value do |value|
+        if value.coordinate[0] == key
+          print "#{value.render} "
+        end
+      end
+      print "\n"
+    end
+  end
+
+  def render_header
+    print "  "
+    render_master.values[0].each do |column_index|
+      print "#{column_index[1]} "
+    end
+  end
 end
 
 

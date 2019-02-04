@@ -113,4 +113,13 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.cells["A3"].empty?
     assert_equal true, @board.cells["A4"].empty?
   end
+
+  def test_board_can_render
+
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", @board.render
+  end
 end
+
+# pry(main)> board.render(true)
+# # => "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
