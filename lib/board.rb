@@ -180,31 +180,19 @@ class Board
     end
   end
 
-  def render(default = false)
+  def render(not_hidden = false)
     render_header
-    render_body
-    print "  "
-
-    # render_arr = []
-    # cells.each do |keys, values|
-    #   render_arr << keys[0]
-    #   if
-    #     render_arr << keys[0]
-    #     p "#{keys[0]}"
-    #   elsif
-    #     render_arr.clear
-    #   end
-    #   binding.pry
-    # end
+    render_body(not_hidden)
+    print "\n"
   end
 
-  def render_body
+  def render_body(not_hidden)
     print "\n"
     render_master.keys.each do |key|
       print "#{key} "
       @cells.each_value do |value|
         if value.coordinate[0] == key
-          print "#{value.render} "
+          print "#{value.render(not_hidden)} "
         end
       end
       print "\n"
