@@ -47,10 +47,18 @@ class Validation
   end
 
   def valid_consecutive?(coordinates)
-    if row_consecutive?(coordinates) == true || column_consecutive?(coordinates) == true
-      true
-    else
-      false
+    if row_ord?(coordinates)
+      if row_consecutive?(coordinates) == true
+        true
+      else
+        false
+      end
+    elsif column_ord?(coordinates)
+      if column_consecutive?(coordinates) == true
+        true
+      else
+        false
+      end
     end
   end
 
@@ -137,20 +145,23 @@ class Validation
   end
 
   def row_consecutive?(coordinates)
-    row_array = row_consecutive_arr(coordinates)[0]
-    if row_array
-      (row_consecutive_arr(coordinates)[0][1]) - (row_consecutive_arr(coordinates)[0][0]) == 1
-    else
-      false
+    row_consecutive_arr(coordinates).all? do |cons|
+      (cons[1] - cons[0]) == 1
     end
   end
 
   def column_consecutive?(coordinates)
-    column_array = column_consecutive_arr(coordinates)[0]
-    if column_array
-      (column_consecutive_arr(coordinates)[0][1]) - (column_consecutive_arr(coordinates)[0][0]) == 1
+    column_consecutive_arr(coordinates).all? do |cons|
+      (cons[1] - cons[0]) == 1
     end
   end
+
+  # def column_consecutive?(coordinates)
+  #   column_consecutive_arr(coordinates)[0]
+  #   if column_ord?(coordinates)
+  #     (column_consecutive_arr(coordinates)[0][1]) - (column_consecutive_arr(coordinates)[0][0]) == 1
+  #   end
+  # end
 
   def valid_coord_by_diagonal?(coordinates)
     if row_ord?(coordinates) || column_ord?(coordinates)
