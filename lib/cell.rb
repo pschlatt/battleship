@@ -18,7 +18,7 @@ class Cell
     else
       false
     end
-    
+
   end
 
   def place_ship(ship_type)
