@@ -87,7 +87,7 @@ class ValidationTest < Minitest::Test
   end
 
   def test_validation_can_place_ships_consecutively_columns
-    assert_equal true, @validation.column_consecutive?(["A1", "B1", "D1"])
+    assert_equal false, @validation.column_consecutive?(["A1", "B1", "D1"])
     assert_equal false, @validation.column_consecutive?(["A3", "C3", "D3"])
     assert_equal false, @validation.column_consecutive?(["B1", "D1"])
     assert_equal false, @validation.column_consecutive?(["B3", "D3"])

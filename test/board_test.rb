@@ -32,8 +32,9 @@ class BoardTest < Minitest::Test
   def test_board_has_valid_placement
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2"])
     assert_equal false, @board.valid_placement?(@submarine, ["A2", "A3", "A4"])
-    # assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
+    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
     assert_equal false, @board.valid_placement?(@submarine, ["A1", "C1"])
+    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "B1", "D1"])
     assert_equal false, @board.valid_placement?(@cruiser, ["A3", "A2", "A1"])
     assert_equal false, @board.valid_placement?(@submarine, ["C1", "B1"])
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "B2", "C3"])
@@ -43,6 +44,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_board_can_place_ships
+    skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     cell_1 = board.cells["A1"]
@@ -57,6 +59,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_ships_dont_overlap_when_placed
+    skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
