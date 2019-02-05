@@ -40,7 +40,7 @@ class Game
     The Submarine is two units long and the
     Cruiser is three units long."
     @player_board.render
-    computer_placement_cruiser
+    cpu_placement_cruiser
     player_input_coordinates_cruiser
   end
 
@@ -56,7 +56,7 @@ class Game
       p "Those are invalid coordinates. Please try again:"
       player_input_coordinates_cruiser
     end
-    # player_input_coordinates_submarine
+    player_input_coordinates_submarine
     player_turn
   end
 
@@ -100,7 +100,7 @@ class Game
     if @cpu_board.validation.valid_placement?(@cpu_cruiser, new_values) == false
       cpu_placement_cruiser
     else
-      new_values
+      return new_values
     end
   end
 

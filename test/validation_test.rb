@@ -119,11 +119,18 @@ class BoardTest < Minitest::Test
     assert_equal true, @board.validation.ships_overlap?(@patrolboat, ["A1", "A2"])
   end
 
+  def test_coordinates_cant_be_identical
+    assert_equal false, @board.validation.valid_placement?(@patrolboat, ["A1", "A1"])
+    assert_equal false, @board.validation.valid_placement?(@cruiser, ["A1", "A2", "A2"])
+    assert_equal true, @board.validation.valid_placement?(@submarine, ["A2", "A3"])
+  end
+
 
   def test_ship_validate_placement_works
     assert_equal true, @board.validation.valid_placement?(@cruiser, ["A1", "A2", "A3"])
     assert_equal false, @board.validation.valid_placement?(@patrolboat, ["C2", "D3"])
     assert_equal true, @board.validation.valid_placement?(@submarine, ["B3", "C3"])
+    assert_equal true, @board.validation.valid_placement?(@cruiser, ["B1", "B3", "B4"])
   end
 
   def test_ship_validate_placement_works_when_placing_ships

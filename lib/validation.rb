@@ -17,6 +17,8 @@ class Validation
       return false
     elsif !valid_coord_by_diagonal?(coordinates)
       return false
+    elsif !valid_identical?(ship, coordinates)
+      return false
     elsif ships_overlap?(ship, coordinates)
       return false
     end
@@ -30,6 +32,10 @@ class Validation
       end
     end
     return true
+  end
+
+  def valid_identical?(ship, coordinates)
+    coordinates.uniq.count == ship.length
   end
 
   def valid_coordinate?(coordinate)
@@ -157,7 +163,7 @@ class Validation
   def ships_overlap?(ship, coordinates)
     cells.each do |cell|
       coordinates.each do |coordinate|
-        if cell[1].empty? == false
+        if cell[1].empty? == false && coordinate == cell[0]
           return true
         end
       end
