@@ -130,6 +130,7 @@ class BoardTest < Minitest::Test
     assert_equal true, @board.validation.valid_placement?(@cruiser, ["A1", "A2", "A3"])
     assert_equal false, @board.validation.valid_placement?(@patrolboat, ["C2", "D3"])
     assert_equal true, @board.validation.valid_placement?(@submarine, ["B3", "C3"])
+    assert_equal true, @board.validation.valid_placement?(@cruiser, ["B1", "B3", "B4"])
   end
 
   def test_ship_validate_placement_works_when_placing_ships
@@ -141,5 +142,4 @@ class BoardTest < Minitest::Test
     @board.cells["A2"].place_ship(@submarine)
     assert_equal false, @board.validation.valid_placement?(@submarine, ["A2", "A3"])
   end
-
 end

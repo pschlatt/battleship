@@ -163,7 +163,7 @@ class Validation
   def ships_overlap?(ship, coordinates)
     cells.each do |cell|
       coordinates.each do |coordinate|
-        if cell[1].empty? == false
+        if cell[1].empty? == false && coordinate == cell[0]
           return true
         end
       end
