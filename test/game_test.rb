@@ -23,8 +23,10 @@ class GameTest < Minitest::Test
   # end
 
   def test_computer_can_place_random_arrays
-    assert_equal [], @current_game.cpu_placement_cruiser
+    assert_equal 3, @current_game.cpu_cruiser_generator.count
   end
 
-
+  def test_computer_can_place_cruiser
+    assert_instance_of Ship, @current_game.cpu_placement_cruiser
+  end
 end

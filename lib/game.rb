@@ -35,19 +35,17 @@ class Game
     end
   end
 
-  def cpu_ship_placement
-    cpu_placement_cruiser
-
-  end
 
   def player_ship_placement
+    cpu_placement_cruiser
+    cpu_placement_submarine
     system('clear')
     print "I have laid out my ships on the grid.\n"
     print "You now need to lay out your two ships.\n"
     print "The Submarine is two units long and the\n"
     print "Cruiser is three units long.\n"
     print "\n"
-    sleep(2)
+    sleep(4)
     @player_board.render
     player_input_coordinates_cruiser
   end
@@ -88,6 +86,10 @@ class Game
     end
   end
 
+  def cpu_ship_placement
+    cpu_placement_cruiser
+    cpu_placement_submarine
+  end
 
   def cpu_cruiser_generator
     random_values = []
@@ -100,40 +102,20 @@ class Game
     return random_values
   end
 
-  def cpu_placement_cruiser
+  def cpu_placement_validation
     cpu_cruiser_generator
     new_values = cpu_cruiser_generator
-    if @cpu_board.validation.valid_placement?(@cpu_cruiser, new_values) == false
-      cpu_placement_cruiser
-    else
-      return new_values
+    until @cpu_board.validation.valid_placement?(@cpu_cruiser, new_values) == true
+      cpu_cruiser_generator
     end
-    cpu_cruiser = Ship.new("Cruiser", new_values)
-  end
-
-
-
-  def cpu_cruiser_generator
-    random_values = []
-    random_values << @cpu_board.render_master.values.flatten.sample
-    random_values.each do |value|
-      if random_values.count < @cpu_cruiser.length
-        random_values << @cpu_board.render_master.values.flatten.sample
-      end
-    end
-    return random_values
+    return new_values
+    binding.pry
   end
 
   def cpu_placement_cruiser
-    cpu_cruiser_generator
-    new_values = cpu_cruiser_generator
-    if @cpu_board.validation.valid_placement?(@cpu_cruiser, new_values) == false
-      cpu_placement_cruiser
-    else
-      return new_values
-    end
-    cpu_cruiser = Ship.new("Cruiser", new_values)
+    cpu_cruiser = Ship.new("Cruiser", cpu_placement_validation)
   end
+
 
   def computer_turn
     system('clear')
@@ -145,17 +127,22 @@ class Game
   def player_turn
     system('clear')
     print "=============COMPUTER BOARD============="
-    @player_board.render
+    print "\n"
+    @cpu_board.render(true)
     print "==============PLAYER BOARD=============="
+    print "\n"
     @player_board.render(true)
     print "Enter the coordinate for your shot: "
     player_shot = gets.chomp
+    binding.pry
     @cpu_board.cells[player_shot].fire_upon
     if @cpu_board.cells[player_shot].empty? == true
       print "You missed."
+      print "\n"
       sleep(2)
     else
       print "It's a hit!"
+      print "\n"
       sleep(2)
     end
   end
