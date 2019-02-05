@@ -89,6 +89,7 @@ class Game
   def cpu_ship_placement
     cpu_placement_cruiser
     cpu_placement_submarine
+    player_turn
   end
 
   def cpu_cruiser_generator
@@ -140,6 +141,7 @@ class Game
   def computer_turn
     system('clear')
     print "The computer is firing"
+    computer_fire
     sleep(2)
     system('clear')
   end
@@ -153,16 +155,39 @@ class Game
     print "\n"
     print @player_board.render(true)
     print "Enter the coordinate for your shot: "
-    player_shot = gets.chomp
+    player_shot = gets.chomp.upcase
     @cpu_board.cells[player_shot].fire_upon
     if @cpu_board.cells[player_shot].empty? == true
       print "You missed."
       print "\n"
       sleep(2)
+      computer_turn
+    elsif @cpu_board.cells[player_shot].ship.sunk? == true
+      print "You sunk their ship!"
+      print "\n"
+      sleep(2)
+      computer_turn
     else
       print "It's a hit!"
       print "\n"
       sleep(2)
+      computer_turn
+    end
+
+  end
+  def computer_fire
+    cpu_shooting = @player_board.render_master.values.flatten.sample
+    @player_board.cells.each_value do |value|
+      if @player_board.cells[cpu_shooting].fired_upon? == false
+        @player_board.cells[cpu_shooting].fire_upon
+        if @player_board.cells[cpu_shooting].ship == nil
+          print "Computer missed!"
+          player_turn
+        else
+          print "Computer hit!"
+          player_turn
+        end
+      end
     end
   end
 end

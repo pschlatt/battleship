@@ -4,6 +4,7 @@ require './lib/board'
 require './lib/cell'
 require './lib/ship'
 require './lib/game'
+require 'pry'
 
 class GameTest < Minitest::Test
 
@@ -26,9 +27,17 @@ class GameTest < Minitest::Test
     assert_equal 3, @current_game.cpu_cruiser_generator.count
   end
 
-  def test_computer_can_create_cruiser
-    assert_instance_of Ship, @current_game.cpu_placement_cruiser
+  def test_computer_can_place_cruiser
+    cruiser = @current_game.cpu_ship_placement
+    assert_equal cruiser, @current_game.cpu_placement_cruiser
   end
 
+  def test_computer_can_place_submarine
+    submarine = @current_game.cpu_ship_placement
+    assert_equal submarine, @current_game.cpu_placement_submarine
+  end
 
+  def test_computer_can_fire
+    assert_equal [], @current_game.computer_fire
+  end
 end
