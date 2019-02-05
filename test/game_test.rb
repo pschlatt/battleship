@@ -26,7 +26,9 @@ class GameTest < Minitest::Test
     assert_equal 3, @current_game.cpu_cruiser_generator.count
   end
 
-  def test_computer_can_place_cruiser
+  def test_computer_can_create_cruiser
     assert_instance_of Ship, @current_game.cpu_placement_cruiser
   end
+
+
 end

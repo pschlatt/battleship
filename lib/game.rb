@@ -11,7 +11,7 @@ class Game
     @player_board = Board.new
     @cpu_board = Board.new
     @cpu_cruiser = Ship.new("Cruiser", 3)
-    @cpu_submarine = Ship.new("Cruiser", 2)
+    @cpu_submarine = Ship.new("Submarine", 2)
   end
 
   def prompt_user_input
@@ -102,20 +102,40 @@ class Game
     return random_values
   end
 
-  def cpu_placement_validation
-    cpu_cruiser_generator
+  def cpu_cruiser_placement_validation
     new_values = cpu_cruiser_generator
-    until @cpu_board.validation.valid_placement?(@cpu_cruiser, new_values) == true
-      cpu_cruiser_generator
+    until @cpu_board.validation.valid_placement?(@cpu_cruiser, new_values)
+      new_values = cpu_cruiser_generator
     end
-    return new_values
-    binding.pry
+    return new_values.sort
   end
 
   def cpu_placement_cruiser
-    cpu_cruiser = Ship.new("Cruiser", cpu_placement_validation)
+    @cpu_board.place(@cpu_cruiser, cpu_cruiser_placement_validation)
   end
 
+  def cpu_submarine_generator
+    random_values = []
+    random_values << @cpu_board.render_master.values.flatten.sample
+    random_values.each do |value|
+      if random_values.count < @cpu_submarine.length
+        random_values << @cpu_board.render_master.values.flatten.sample
+      end
+    end
+    return random_values
+  end
+
+  def cpu_submarine_placement_validation
+    new_values = cpu_submarine_generator
+    until @cpu_board.validation.valid_placement?(@cpu_submarine, new_values)
+      new_values = cpu_submarine_generator
+    end
+    return new_values.sort
+  end
+
+  def cpu_placement_submarine
+    @cpu_board.place(@cpu_submarine, cpu_submarine_placement_validation)
+  end
 
   def computer_turn
     system('clear')
@@ -134,7 +154,6 @@ class Game
     @player_board.render(true)
     print "Enter the coordinate for your shot: "
     player_shot = gets.chomp
-    binding.pry
     @cpu_board.cells[player_shot].fire_upon
     if @cpu_board.cells[player_shot].empty? == true
       print "You missed."
