@@ -31,6 +31,14 @@ class Board
     @validation
   end
 
+  def valid_coordinate?(coordinate)
+    @validation.valid_coordinate?(coordinate)
+  end
+
+  def valid_placement?(ships, coordinate)
+    @validation.valid_placement?(ships, coordinate)
+  end
+
   def place(ship, coordinates)
     cells.each do |cell|
       coordinates.each do |coordinate|
@@ -59,7 +67,7 @@ class Board
   end
 
   def render_body(not_hidden)
-    print "\n"
+    output = "\n"
     render_master.keys.each do |key|
       print "#{key} "
       @cells.each_value do |value|
@@ -76,5 +84,6 @@ class Board
     render_master.values[0].each do |column_index|
       print "#{column_index[1]} "
     end
+    print "\n"
   end
 end
