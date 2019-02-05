@@ -148,10 +148,10 @@ class Game
     system('clear')
     print "=============COMPUTER BOARD============="
     print "\n"
-    @cpu_board.render(true)
+    print @cpu_board.render(true)
     print "==============PLAYER BOARD=============="
     print "\n"
-    @player_board.render(true)
+    print @player_board.render(true)
     print "Enter the coordinate for your shot: "
     player_shot = gets.chomp
     @cpu_board.cells[player_shot].fire_upon

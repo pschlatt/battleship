@@ -35,8 +35,8 @@ class Board
     @validation.valid_coordinate?(coordinate)
   end
 
-  def valid_placement?(ship, coordinates)
-    @validation.valid_placement?(ship, coordinates)
+  def valid_placement?(ships, coordinate)
+    @validation.valid_placement?(ships, coordinate)
   end
 
   def place(ship, coordinates)
@@ -75,7 +75,7 @@ class Board
           print "#{value.render(not_hidden)} "
         end
       end
-      "\n"
+      print "\n"
     end
   end
 
@@ -84,5 +84,6 @@ class Board
     render_master.values[0].each do |column_index|
       print "#{column_index[1]} "
     end
+    print "\n"
   end
 end

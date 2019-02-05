@@ -79,7 +79,6 @@ class ValidationTest < Minitest::Test
     assert_equal [[66, 67], [67, 68]], @validation.column_consecutive_arr(["B2", "C2", "D2"])
   end
 
-  #We may need to test this can work in reverse as well
   def test_validation_can_place_ships_consecutively_rows
     assert_equal true, @validation.row_consecutive?(["A1", "A2", "A3", "A4"])
     assert_equal false, @validation.row_consecutive?(["A1", "A3", "A4"])
@@ -87,7 +86,6 @@ class ValidationTest < Minitest::Test
     assert_equal false, @validation.row_consecutive?(["A1", "A3"])
   end
 
-  #We may need to test this can work in reverse as well
   def test_validation_can_place_ships_consecutively_columns
     assert_equal true, @validation.column_consecutive?(["A1", "B1", "D1"])
     assert_equal false, @validation.column_consecutive?(["A3", "C3", "D3"])
@@ -136,11 +134,13 @@ class ValidationTest < Minitest::Test
 
   def test_ship_validate_placement_works_when_placing_ships
     assert_equal true, @validation.valid_placement?(@cruiser, ["A1", "A2", "A3"])
-    @board.cells["A1"].place_ship(@patrolboat)
     @board.cells["A2"].place_ship(@patrolboat)
+    @board.cells["A1"].place_ship(@patrolboat)
+
     assert_equal false, @validation.valid_placement?(@patrolboat, ["A1", "A2"])
     @board.cells["A1"].place_ship(@submarine)
     @board.cells["A2"].place_ship(@submarine)
+
     assert_equal false, @validation.valid_placement?(@submarine, ["A2", "A3"])
   end
 end
