@@ -204,18 +204,30 @@ class Game
   end
 
   def game_results
-    if cpu_game_end == true
+    if cpu_game_end? == true
       print "The computer has won.  You'll need to walk this one off."
-    elsif player_game_end == true
+    elsif player_game_end? == true
       print "You've won!"
     end
   end
 
-  def cpu_game_end
-    @player_board.cells.each_value do |value|
-      binding.pry
-
+  def cpu_game_end?
+    @player_board.cells.each_value.all? do |value|
+      if value.ship != nil
+        if value.ship.sunk? == true
+          true
+        end
+      end
     end
+  end
 
+  def player_game_end?
+    @cpu_board.cells.each_value.all? do |value|
+      if value.ship != nil
+        if value.ship.sunk? == true
+          true
+        end
+      end
+    end
   end
 end
