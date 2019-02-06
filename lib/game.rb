@@ -143,7 +143,7 @@ class Game
     print "The computer is firing"
     print "\n"
     computer_fire
-    sleep(2)
+    # sleep(2)
     system('clear')
   end
 
@@ -157,6 +157,9 @@ class Game
     print @player_board.render(true)
     print "Enter the coordinate for your shot: "
     player_shot = gets.chomp.upcase
+    until @player_board.valid_coordinate?(player_shot)
+      player_shot = gets.chomp.upcase
+    end
     if @cpu_board.cells[player_shot].fired_upon? == true
       print "\n"
       print "You've already shot there.  Try again."
@@ -247,14 +250,4 @@ class Game
     end
     ship_count == ship_sunk
   end
-
-  # def player_game_end?
-  #   @cpu_board.cells.each_value.all? do |value|
-  #     if value.ship != nil
-  #       if value.ship.sunk? == true
-  #         true
-  #       end
-  #     end
-  #   end
-  # end
 end

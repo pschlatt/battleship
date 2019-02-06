@@ -27,6 +27,20 @@ class Board
     @validation = Validation.new(@cells)
   end
 
+  # def custom_board_keys
+  #   print "Enter a number from 4 to 25"
+  #   arr_key = gets.chomp
+  #   if arr_key > 25
+  #     print "That's too large for this board"
+  #     system('clear')
+  #     sleep(2)
+  #     custom_board_keys
+  #   end
+  #   arr = (*1..arr_key)
+  #   arr.length
+  #
+  # end
+
   def validation
     @validation
   end
