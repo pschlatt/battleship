@@ -101,7 +101,6 @@ class ValidationTest < Minitest::Test
   end
 
   def test_validation_test_has_valid_coordinates
-    skip
     assert_equal true, @validation.valid_coordinates?(["A1", "A2", "A3"])
     assert_equal false, @validation.valid_coordinates?(["B12", "B4", "smell"])
     assert_equal false, @validation.valid_coordinates?(["A5", "B39", "wait"])
