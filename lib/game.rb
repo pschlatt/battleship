@@ -141,6 +141,7 @@ class Game
   def computer_turn
     system('clear')
     print "The computer is firing"
+    print "\n"
     computer_fire
     sleep(2)
     system('clear')
@@ -156,6 +157,12 @@ class Game
     print @player_board.render(true)
     print "Enter the coordinate for your shot: "
     player_shot = gets.chomp.upcase
+    if @cpu_board.cells[player_shot].fired_upon? == true
+      print "\n"
+      print "You've already shot there.  Try again."
+      sleep(2)
+      player_turn
+    end
     @cpu_board.cells[player_shot].fire_upon
     if @cpu_board.cells[player_shot].empty? == true
       print "Your shot missed on #{player_shot}."
@@ -174,8 +181,8 @@ class Game
       sleep(2)
       computer_turn
     end
-
   end
+
   def computer_fire
     cpu_shooting = @player_board.render_master.values.flatten.sample
     @player_board.cells.each_value do |value|
@@ -205,29 +212,49 @@ class Game
 
   def game_results
     if cpu_game_end? == true
+      system('clear')
       print "The computer has won.  You'll need to walk this one off."
+      sleep(5)
+      prompt_user_input
     elsif player_game_end? == true
+      system('clear')
       print "You've won!"
+      sleep(5)
+      prompt_user_input
     end
   end
 
   def cpu_game_end?
-    @player_board.cells.each_value.all? do |value|
+    ship_count = @player_board.cells.each_value.count do |value|
+      value.ship != nil
+    end
+    ship_sunk = @player_board.cells.each_value.count do |value|
       if value.ship != nil
-        if value.ship.sunk? == true
-          true
-        end
+        value.ship.sunk?
       end
     end
+    ship_count == ship_sunk
   end
 
   def player_game_end?
-    @cpu_board.cells.each_value.all? do |value|
+    ship_count = @cpu_board.cells.each_value.count do |value|
+      value.ship != nil
+    end
+    ship_sunk = @cpu_board.cells.each_value.count do |value|
       if value.ship != nil
-        if value.ship.sunk? == true
-          true
-        end
+        value.ship.sunk?
       end
     end
+    ship_count == ship_sunk
   end
+
+  # def player_game_end?
+  #   @cpu_board.cells.each_value.all? do |value|
+  #     if value.ship != nil
+  #       if value.ship.sunk? == true
+  #         true
+  #       end
+  #     end
+  #   end
+  # end
 end
