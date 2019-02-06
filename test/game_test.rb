@@ -38,6 +38,6 @@ class GameTest < Minitest::Test
   end
 
   def test_computer_can_fire
-    assert_equal [], @current_game.computer_fire
+    assert_equal ["A1"], @current_game.cpu_game_end
   end
 end

@@ -150,7 +150,7 @@ class Game
     system('clear')
     print "=============COMPUTER BOARD============="
     print "\n"
-    print @cpu_board.render(true)
+    print @cpu_board.render
     print "==============PLAYER BOARD=============="
     print "\n"
     print @player_board.render(true)
@@ -158,7 +158,7 @@ class Game
     player_shot = gets.chomp.upcase
     @cpu_board.cells[player_shot].fire_upon
     if @cpu_board.cells[player_shot].empty? == true
-      print "You missed."
+      print "Your shot missed on #{player_shot}."
       print "\n"
       sleep(2)
       computer_turn
@@ -166,9 +166,10 @@ class Game
       print "You sunk their ship!"
       print "\n"
       sleep(2)
+      game_results
       computer_turn
     else
-      print "It's a hit!"
+      print "Your shot on #{player_shot} was a hit!"
       print "\n"
       sleep(2)
       computer_turn
@@ -181,13 +182,40 @@ class Game
       if @player_board.cells[cpu_shooting].fired_upon? == false
         @player_board.cells[cpu_shooting].fire_upon
         if @player_board.cells[cpu_shooting].ship == nil
-          print "Computer missed!"
+          print "\n"
+          print "Computer missed shot on #{cpu_shooting}!"
+          sleep(2)
+          player_turn
+        elsif @player_board.cells[cpu_shooting].ship.sunk? == true
+          print "\n"
+          print "Computer hit your ship on coordinate #{cpu_shooting}!"
+          sleep(2)
+          game_results
           player_turn
         else
-          print "Computer hit!"
+          print "The computer hit your ship on #{cpu_shooting}!"
+          sleep(2)
           player_turn
         end
+      else @player_board.cells[cpu_shooting].fired_upon? == true
+        computer_fire
       end
     end
+  end
+
+  def game_results
+    if cpu_game_end == true
+      print "The computer has won.  You'll need to walk this one off."
+    elsif player_game_end == true
+      print "You've won!"
+    end
+  end
+
+  def cpu_game_end
+    @player_board.cells.each_value do |value|
+      binding.pry
+
+    end
+
   end
 end
